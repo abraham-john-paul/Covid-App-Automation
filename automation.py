@@ -11,7 +11,7 @@ abs_file_path = os.path.join(script_dir, rel_path)
 with open(abs_file_path) as f:
   data = json.load(f)
 
-working_status_choice = map(int, input('''What is the working status ?
+working_status_choice = int(input('''What is the working status ?
         1 >> Work From Home
         2 >> Work From Office
         3 >> On Leave
@@ -56,6 +56,8 @@ elif working_status_choice == 3:
 else:
     working_status = WorkingStatus.WorkFromHome
 
+print('working status', working_status, working_status_choice)
+
 working_status_xpath = '/html/body/div[1]/div[3]/form/div/table/tbody/tr[6]/td[2]/select/option[{choice}]'.format(choice=working_status.value)
 driver.find_element_by_xpath(working_status_xpath).click()
 
@@ -69,15 +71,11 @@ if working_status == WorkingStatus.WorkFromHome:
 
     network_connection_type = NetworkConnectionType.Broadband
     if network_connection_type == NetworkConnectionType.Broadband:
-        driver.find_element_by_xpath('//*[@id="isBroadband1"]').click()
+        driver.find_element_by_xpath('/html/body/div[1]/div[3]/form/div/table[1]/tbody/tr[7]/td[2]/select/option[1]').click()
+    elif network_connection_type == NetworkConnectionType.DialUp:
+        driver.find_element_by_xpath('/html/body/div[1]/div[3]/form/div/table[1]/tbody/tr[7]/td[2]/select/option[2]').click()
     else:
-        driver.find_element_by_xpath('//*[@id="isBroadband2"]').click()
-
-    using_mobile_data = False
-    if using_mobile_data == True:
-        driver.find_element_by_xpath('//*[@id="isMobileData1"]').click()
-    else:
-        driver.find_element_by_xpath('//*[@id="isMobileData2"]').click()
+        driver.find_element_by_xpath('/html/body/div[1]/div[3]/form/div/table[1]/tbody/tr[7]/td[2]/select/option[3]').click()
     
     able_to_connect_MobisON = True
     if able_to_connect_MobisON == True:
@@ -91,11 +89,6 @@ if is_tested_covid_positive == True:
 else:
     driver.find_element_by_xpath('//*[@id="isTestedCovid2"]').click() # No
 
-is_building_in_containtment_zone = False
-if is_building_in_containtment_zone == True:
-    driver.find_element_by_xpath('//*[@id="isContainmentZone1"]').click() # Yes
-else:
-    driver.find_element_by_xpath('//*[@id="isContainmentZone2"]').click() # No
 
 is_body_temperature_abnormal = False
 if is_body_temperature_abnormal == True:
@@ -121,6 +114,18 @@ if has_14day_travel_history == True:
 else:
     driver.find_element_by_xpath('//*[@id="travelhistory_no"]').click() # No
 
+has_attended_public_gathering_or_function = False
+if has_attended_public_gathering_or_function == True:
+    driver.find_element_by_xpath('//*[@id="isAttendedGatheringOrFunctions1"]').click() # Yes
+else:
+    driver.find_element_by_xpath('//*[@id="isAttendedGatheringOrFunctions2"]').click() # No
+
+has_family_attended_public_gathering_or_function = False
+if has_family_attended_public_gathering_or_function == True:
+    driver.find_element_by_xpath('//*[@id="isFamilyAttendedGatheringOrFunctions1"]').click() # Yes
+else:
+    driver.find_element_by_xpath('//*[@id="isFamilyAttendedGatheringOrFunctions2"]').click() # No
+
 is_family_tested_covid_positive = False
 if is_family_tested_covid_positive == True:
     driver.find_element_by_xpath('//*[@id="isFamilyTestedCovid1"]').click() # Yes
@@ -133,11 +138,21 @@ if is_family_health_issue == True:
 else:
     driver.find_element_by_xpath('//*[@id="isfamilyillIssue2"]').click() # No
 
+is_building_in_containtment_zone = False
+if is_building_in_containtment_zone == True:
+    driver.find_element_by_xpath('//*[@id="isContainmentZone1"]').click() # Yes
+else:
+    driver.find_element_by_xpath('//*[@id="isContainmentZone2"]').click() # No
+
 is_neighbours_tested_covid_positive = False
 if is_neighbours_tested_covid_positive == True:
     driver.find_element_by_xpath('//*[@id="isNeighbourTestedCovid1"]').click() # Yes
 else:
     driver.find_element_by_xpath('//*[@id="isNeighbourTestedCovid2"]').click() # No
+
+validate_form = True
+if validate_form == True:
+    driver.find_element_by_xpath('//*[@id="isFormValidCheck"]').click() # Accept
 
 page2_submit_button_xpath_action = driver.find_element_by_xpath('//*[@id="saveCovidDetails"]').click()
 
