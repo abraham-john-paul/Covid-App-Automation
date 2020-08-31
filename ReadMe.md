@@ -1,4 +1,4 @@
-#Setup
+# Setup
 1. Install python 3.8 and pip
 2. Install virtualenv using pip `pip install virtualenv`
 3. Clone the code
