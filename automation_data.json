@@ -1,8 +1,8 @@
 {
     "firefox_driver_path" : "/home/abraham-paul/Downloads/geckodriver",
     "website" : "https://mtci-covidapp.com/covidApp/",
-    "user_name" : "abrahampaul096@gmail.com",
-    "password" : "Abraham1.",
+    "user_name" : "",
+    "password" : "",
     "user_details": {
         "current_city" : "Hyderabad",
         "current_state" : "Telangana",
