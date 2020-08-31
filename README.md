@@ -1,7 +1,7 @@
 # Setup
 1. Install python 3.8 and pip
 2. Install virtualenv using pip 
-`pip install virtualenv`
+```pip install virtualenv```
 3. Clone the code
 4. Create a virtualenv and install selenium package to it.
 ```
@@ -14,5 +14,5 @@ deactivate
 6. Edit automation_data.json
 7. Run the automation file
 ```
-{path_to_virtualenv}\env\Scripts\python.exe automation.py
+{path_to_virtualenv_folder}\env\Scripts\python.exe automation.py
 ```
