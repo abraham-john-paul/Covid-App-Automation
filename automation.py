@@ -2,7 +2,7 @@ from selenium import webdriver
 import json
 from automation_constants import *
 import os
-# from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
+from selenium.common.exceptions import WebDriverException
 
 script_dir = os.path.dirname(__file__)
 rel_path = "./automation_data.json"
@@ -16,13 +16,12 @@ working_status_choice = int(input('''What is the working status ?
         2 >> Work From Office
         3 >> On Leave
 Enter your choice : ''').strip())
-
-
-# caps = DesiredCapabilities.FIREFOX
-
-# driver = webdriver.Remote(command_executor='http://redwood:4444/wd/hub',desired_capabilities=caps)
-
-driver = webdriver.Firefox(executable_path=data['firefox_driver_path'])
+# driver = ""
+driver_path = data['browser_driver_path']
+try:
+    driver = webdriver.Chrome(executable_path=driver_path)
+except WebDriverException:
+    driver = webdriver.Firefox(executable_path=driver_path)
 driver.get(data['website'])
 
 # Page 1
@@ -63,7 +62,7 @@ driver.find_element_by_xpath(working_status_xpath).click()
 
 
 if working_status == WorkingStatus.WorkFromHome:
-    able_to_connect_vpn = True
+    able_to_connect_vpn = data['user_details']['able_to_connect_vpn']
     if able_to_connect_vpn == True:
         driver.find_element_by_xpath('//*[@id="isVpnIssue1"]').click()
     else:
@@ -77,74 +76,74 @@ if working_status == WorkingStatus.WorkFromHome:
     else:
         driver.find_element_by_xpath('/html/body/div[1]/div[3]/form/div/table[1]/tbody/tr[7]/td[2]/select/option[3]').click()
     
-    able_to_connect_MobisON = True
+    able_to_connect_MobisON = data['user_details']['able_to_connect_MobisON']
     if able_to_connect_MobisON == True:
         driver.find_element_by_xpath('//*[@id="isConnectMobison1"]').click() # Yes
     else:
         driver.find_element_by_xpath('//*[@id="isConnectMobison2"]').click() # No
 
-is_tested_covid_positive = False
+is_tested_covid_positive = data['user_details']['is_tested_covid_positive']
 if is_tested_covid_positive == True:
     driver.find_element_by_xpath('//*[@id="isTestedCovid1"]').click() # Yes
 else:
     driver.find_element_by_xpath('//*[@id="isTestedCovid2"]').click() # No
 
 
-is_body_temperature_abnormal = False
+is_body_temperature_abnormal = data['user_details']['is_body_temperature_abnormal']
 if is_body_temperature_abnormal == True:
     driver.find_element_by_xpath('//*[@id="isValidBodyTemp1"]').click() # Yes
 else:
     driver.find_element_by_xpath('//*[@id="isValidBodyTemp2"]').click() # No
 
-has_symptoms = False
+has_symptoms = data['user_details']['has_symptoms']
 if has_symptoms == True:
     driver.find_element_by_xpath('//*[@id="haveSymptoms1"]').click() # Yes
 else:
     driver.find_element_by_xpath('//*[@id="haveSymptoms2"]').click() # No
 
-has_other_symptoms = False
+has_other_symptoms = data['user_details']['has_other_symptoms']
 if has_other_symptoms == True:
     driver.find_element_by_xpath('//*[@id="haveOtherSymptoms1"]').click() # Yes
 else:
     driver.find_element_by_xpath('//*[@id="haveOtherSymptoms2"]').click() # No
 
-has_14day_travel_history = False
+has_14day_travel_history = data['user_details']['has_14day_travel_history']
 if has_14day_travel_history == True:
     driver.find_element_by_xpath('//*[@id="travelhistory_yes"]').click() # Yes
 else:
     driver.find_element_by_xpath('//*[@id="travelhistory_no"]').click() # No
 
-has_attended_public_gathering_or_function = False
+has_attended_public_gathering_or_function = data['user_details']['has_attended_public_gathering_or_function']
 if has_attended_public_gathering_or_function == True:
     driver.find_element_by_xpath('//*[@id="isAttendedGatheringOrFunctions1"]').click() # Yes
 else:
     driver.find_element_by_xpath('//*[@id="isAttendedGatheringOrFunctions2"]').click() # No
 
-has_family_attended_public_gathering_or_function = False
+has_family_attended_public_gathering_or_function = data['user_details']['has_family_attended_public_gathering_or_function']
 if has_family_attended_public_gathering_or_function == True:
     driver.find_element_by_xpath('//*[@id="isFamilyAttendedGatheringOrFunctions1"]').click() # Yes
 else:
     driver.find_element_by_xpath('//*[@id="isFamilyAttendedGatheringOrFunctions2"]').click() # No
 
-is_family_tested_covid_positive = False
+is_family_tested_covid_positive = data['user_details']['is_family_tested_covid_positive']
 if is_family_tested_covid_positive == True:
     driver.find_element_by_xpath('//*[@id="isFamilyTestedCovid1"]').click() # Yes
 else:
     driver.find_element_by_xpath('//*[@id="isFamilyTestedCovid2"]').click() # No
 
-is_family_health_issue = False
+is_family_health_issue = data['user_details']['is_family_health_issue']
 if is_family_health_issue == True:
     driver.find_element_by_xpath('//*[@id="isfamilyillIssue1"]').click() # Yes
 else:
     driver.find_element_by_xpath('//*[@id="isfamilyillIssue2"]').click() # No
 
-is_building_in_containtment_zone = False
+is_building_in_containtment_zone = data['user_details']['is_building_in_containtment_zone']
 if is_building_in_containtment_zone == True:
     driver.find_element_by_xpath('//*[@id="isContainmentZone1"]').click() # Yes
 else:
     driver.find_element_by_xpath('//*[@id="isContainmentZone2"]').click() # No
 
-is_neighbours_tested_covid_positive = False
+is_neighbours_tested_covid_positive = data['user_details']['is_neighbours_tested_covid_positive']
 if is_neighbours_tested_covid_positive == True:
     driver.find_element_by_xpath('//*[@id="isNeighbourTestedCovid1"]').click() # Yes
 else:
@@ -154,8 +153,8 @@ validate_form = True
 if validate_form == True:
     driver.find_element_by_xpath('//*[@id="isFormValidCheck"]').click() # Accept
 
-page2_submit_button_xpath_action = driver.find_element_by_xpath('//*[@id="saveCovidDetails"]').click()
+# page2_submit_button_xpath_action = driver.find_element_by_xpath('//*[@id="saveCovidDetails"]').click()
 
-signout_xpath_action = driver.find_element_by_xpath('/html/body/div[1]/div[1]/div[1]/div/table/tbody/tr[2]/td/a').click() # signing out
+# signout_xpath_action = driver.find_element_by_xpath('/html/body/div[1]/div[1]/div[1]/div/table/tbody/tr[2]/td/a').click() # signing out
 
-driver.quit() # closing browser
+# driver.quit() # closing browser

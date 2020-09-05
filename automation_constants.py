@@ -12,3 +12,4 @@ class AarogyaSetuStatus(enum.Enum):
 class NetworkConnectionType(enum.Enum): 
     Broadband = 2
     DialUp = 3
+    MobileData = 4

@@ -1,11 +1,25 @@
 {
-    "firefox_driver_path" : "/home/abraham-paul/Downloads/geckodriver",
+    "browser_driver_path" : "/home/abraham-paul/Downloads/geckodriver",
     "website" : "https://mtci-covidapp.com/covidApp/",
-    "user_name" : "abrahampaul096@gmail.com",
-    "password" : "Abraham1.",
+    "user_name" : "",
+    "password" : "",
     "user_details": {
         "current_city" : "Hyderabad",
         "current_state" : "Telangana",
-        "aarogya_setu_status" : "safe"
+        "aarogya_setu_status" : "safe",
+        "able_to_connect_vpn" : true,
+        "able_to_connect_MobisON" : true,
+        "is_tested_covid_positive" : false,
+        "is_body_temperature_abnormal" : false,
+        "has_symptoms" : false,
+        "has_other_symptoms" : false,
+        "has_14day_travel_history" : false,
+        "has_attended_public_gathering_or_function" : false,
+        "has_family_attended_public_gathering_or_function" : false,
+        "is_family_tested_covid_positive" : false,
+        "is_family_health_issue" : false,
+        "is_building_in_containtment_zone" : false,
+        "is_neighbours_tested_covid_positive" : false,
+        "validate_form" : true
     }
 }
