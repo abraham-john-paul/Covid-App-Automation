@@ -10,9 +10,9 @@ env\Scripts\activate
 pip install selenium
 deactivate
 ```
-5. Download Gecko Driver for firefox
+5. Download Gecko Driver if using firefox or chromedriver if using Chrome(make sure the driver version and browser version matches)
 6. Edit automation_data.json
-7. Run the automation file
+7. Run the automation file in the virtual environment created.
 ```
 {path_to_virtualenv_folder}\env\Scripts\python.exe automation.py
 ```
