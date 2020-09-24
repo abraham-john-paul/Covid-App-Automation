@@ -37,7 +37,9 @@ page1_submit_button_xpath = driver.find_element_by_xpath('/html/body/div/div/div
 current_city = data['user_details']['current_city']
 current_city_xpath_action = driver.find_element_by_xpath('//*[@id="tx_currentCity"]').send_keys(current_city)
 
-current_state_xpath_action = driver.find_element_by_xpath('/html/body/div[1]/div[3]/form/div/table/tbody/tr[3]/td[4]/select/option[3]').click()
+current_state = data['user_details']['current_state']
+current_state_xpath = "/html/body/div[1]/div[3]/form/div/table/tbody/tr[3]/td[4]/select/option[text()='{choice}']".format(choice=current_state)
+current_state_xpath_action = driver.find_element_by_xpath(current_state_xpath).click()
 
 aarogya_setu_status = AarogyaSetuStatus.Safe
 if data['user_details']['aarogya_setu_status'].lower() == "unsafe":
