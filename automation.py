@@ -162,8 +162,8 @@ if validate_form == True:
     driver.find_element_by_xpath('//*[@id="isFormValidCheck"]').click() # Accept
 print('Validating form...')
 
-# page2_submit_button_xpath_action = driver.find_element_by_xpath('//*[@id="saveCovidDetails"]').click()
+page2_submit_button_xpath_action = driver.find_element_by_xpath('//*[@id="saveCovidDetails"]').click()
 
-# signout_xpath_action = driver.find_element_by_xpath('/html/body/div[1]/div[1]/div[1]/div/table/tbody/tr[2]/td/a').click() # signing out
+signout_xpath_action = driver.find_element_by_xpath('/html/body/div[1]/div[1]/div[1]/div/table/tbody/tr[2]/td/a').click() # signing out
 
-# driver.quit() # closing browser
+driver.quit() # closing browser
