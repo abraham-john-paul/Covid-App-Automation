@@ -1,9 +1,11 @@
 import enum
 
 class WorkingStatus(enum.Enum): 
-    OnLeave = 2
-    WorkFromHome = 3
-    WorkFromOffice = 4
+    OnLeave = 1
+    WorkFromHome = 2
+    WorkFromOffice = 3
+    BusinessTrip = 4
+    WeekendsOrHolidays = 5
     
 class AarogyaSetuStatus(enum.Enum): 
     Safe = 2
