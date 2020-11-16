@@ -123,15 +123,15 @@ else:
 
 has_attended_public_gathering_or_function = False
 if has_attended_public_gathering_or_function == True:
-    driver.find_element_by_xpath('//*[@id="isAttendedGatheringOrFunctions1"]').click() # Yes
+    driver.find_element_by_xpath('//*[@id="is_attended_yes"]').click() # Yes
 else:
-    driver.find_element_by_xpath('//*[@id="isAttendedGatheringOrFunctions2"]').click() # No
+    driver.find_element_by_xpath('//*[@id="is_attended_no"]').click() # No
 
 has_family_attended_public_gathering_or_function = False
 if has_family_attended_public_gathering_or_function == True:
-    driver.find_element_by_xpath('//*[@id="isFamilyAttendedGatheringOrFunctions1"]').click() # Yes
+    driver.find_element_by_xpath('//*[@id="is_family_attended_yes"]').click() # Yes
 else:
-    driver.find_element_by_xpath('//*[@id="isFamilyAttendedGatheringOrFunctions2"]').click() # No
+    driver.find_element_by_xpath('//*[@id="is_family_attended_no"]').click() # No
 
 is_family_tested_covid_positive = False
 if is_family_tested_covid_positive == True:
