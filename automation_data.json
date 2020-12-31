@@ -7,6 +7,7 @@
         "current_city" : "Hyderabad",
         "current_state" : "Telangana",
         "aarogya_setu_status" : "safe",
+        "working_status" : "On Leave",
         "able_to_connect_vpn" : true,
         "able_to_connect_MobisON" : true,
         "is_tested_covid_positive" : false,
