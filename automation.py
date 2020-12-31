@@ -1,4 +1,5 @@
 from selenium import webdriver
+from selenium.webdriver.support.ui import Select
 import json
 from automation_constants import *
 import os
@@ -30,46 +31,32 @@ print('Entering username :', user_name)
 password = data['password']
 password_xpath_action = driver.find_element_by_xpath('//*[@id="password"]').send_keys(password)
 print('Entering password...')
-
 print('Signing in...')
-page1_submit_button_xpath = driver.find_element_by_xpath('/html/body/div/div/div/div/div/form/button').click()
+page1_submit_button_xpath = driver.find_element_by_xpath('//*[@id="da_verified"]').click()
 
 # Page 2
 current_city = data['user_details']['current_city']
 current_city_xpath_action = driver.find_element_by_xpath('//*[@id="tx_currentCity"]').send_keys(current_city)
 print('Entering city :', current_city)
-
 current_state = data['user_details']['current_state']
-current_state_xpath = "/html/body/div[1]/div[3]/form/div/table/tbody/tr[3]/td[4]/select/option[text()='{choice}']".format(choice=current_state)
-current_state_xpath_action = driver.find_element_by_xpath(current_state_xpath).click()
+current_state_xpath = Select(driver.find_element_by_xpath('//*[@id="tx_currentState"]'))
+current_state_xpath.select_by_visible_text(current_state)
 print('Selecting State :', current_state)
 
 aarogya_setu_status = AarogyaSetuStatus.Safe
 if data['user_details']['aarogya_setu_status'].lower() == "unsafe":
     aarogya_setu_status = AarogyaSetuStatus.Unsafe
 
-aarogya_setu_app_xpath = '/html/body/div[1]/div[3]/form/div/table/tbody/tr[5]/td[2]/select/option[{choice}]'.format(choice=aarogya_setu_status.value)
-driver.find_element_by_xpath(aarogya_setu_app_xpath).click()
+aarogya_setu_app_xpath = Select(driver.find_element_by_xpath('//*[@id="aarogyaStatusid"]'))
+aarogya_setu_app_xpath.select_by_visible_text(aarogya_setu_status.name)
 print('Selecting AarogyaSetu Status :', aarogya_setu_status.name)
 
+working_status = data['user_details']['working_status']
+working_status_xpath = Select(driver.find_element_by_xpath('//*[@id="workStatus"]'))
+working_status_xpath.select_by_visible_text(working_status)
+print('Selecting Working status : ', working_status)
 
-working_status = WorkingStatus.WorkFromOffice
-if working_status_choice == 2:
-    working_status = WorkingStatus.WorkFromOffice
-elif working_status_choice == 3:
-    working_status = WorkingStatus.OnLeave
-elif working_status_choice == 4:
-    working_status = WorkingStatus.BusinessTrip
-elif working_status_choice == 5:
-    working_status = WorkingStatus.WeekendsOrHolidays
-else:
-    working_status = WorkingStatus.WorkFromHome
-
-working_status_xpath = '/html/body/div[1]/div[3]/form/div/table/tbody/tr[6]/td[2]/select/option[{choice}]'.format(choice=working_status.value + 1)
-driver.find_element_by_xpath(working_status_xpath).click()
-print('Selecting Working status : ', working_status.name, working_status_choice)
-
-if working_status == WorkingStatus.WorkFromHome:
+if working_status == "WFH":
     able_to_connect_vpn = True
     if able_to_connect_vpn == True:
         driver.find_element_by_xpath('//*[@id="isVpnIssue1"]').click()
@@ -78,11 +65,12 @@ if working_status == WorkingStatus.WorkFromHome:
 
     network_connection_type = NetworkConnectionType.Broadband
     if network_connection_type == NetworkConnectionType.Broadband:
-        driver.find_element_by_xpath('/html/body/div[1]/div[3]/form/div/table[1]/tbody/tr[7]/td[2]/select/option[1]').click()
-    elif network_connection_type == NetworkConnectionType.DialUp:
-        driver.find_element_by_xpath('/html/body/div[1]/div[3]/form/div/table[1]/tbody/tr[7]/td[2]/select/option[2]').click()
-    else:
-        driver.find_element_by_xpath('/html/body/div[1]/div[3]/form/div/table[1]/tbody/tr[7]/td[2]/select/option[3]').click()
+        network_connection_xpath = Select(driver.find_element_by_xpath('//*[@id="tx_inetCon"]'))
+        network_connection_xpath.select_by_visible_text(network_connection_type.name)
+    # elif network_connection_type == NetworkConnectionType.DialUp:
+    #     driver.find_element_by_xpath('/html/body/div[1]/div[2]/main/div/form/div/table[1]/tbody/tr[5]/td[2]/select/option[2]').click()
+    # else:
+    #     driver.find_element_by_xpath('/html/body/div[1]/div[2]/main/div/form/div/table[1]/tbody/tr[5]/td[2]/select/option[3]').click()
     
     able_to_connect_MobisON = True
     if able_to_connect_MobisON == True:
