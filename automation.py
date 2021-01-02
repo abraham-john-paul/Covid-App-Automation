@@ -45,13 +45,21 @@ print('Selecting State :', current_state)
 
 aarogya_setu_status = AarogyaSetuStatus.Safe
 if data['user_details']['aarogya_setu_status'].lower() == "unsafe":
-    aarogya_setu_status = AarogyaSetuStatus.Unsafe
+    aarogya_setu_status = AarogyaSetuStatus.UnSafe
 
 aarogya_setu_app_xpath = Select(driver.find_element_by_xpath('//*[@id="aarogyaStatusid"]'))
 aarogya_setu_app_xpath.select_by_visible_text(aarogya_setu_status.name)
 print('Selecting AarogyaSetu Status :', aarogya_setu_status.name)
 
-working_status = data['user_details']['working_status']
+working_status_switcher = { 
+        1: "WFH", 
+        2: "WFO", 
+        3: "On Leave",
+        4: "Business Trip",
+        5: "Holiday"
+} 
+
+working_status = working_status_switcher.get(working_status_choice, "WFH")
 working_status_xpath = Select(driver.find_element_by_xpath('//*[@id="workStatus"]'))
 working_status_xpath.select_by_visible_text(working_status)
 print('Selecting Working status : ', working_status)
